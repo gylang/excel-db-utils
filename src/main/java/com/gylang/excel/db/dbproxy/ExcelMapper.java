@@ -16,7 +16,7 @@ public interface ExcelMapper<T> {
     /**
      * 查询一条
      *
-     * @param t 映射对象查询
+     * @param t 映射对象查询条件
      * @return 查询结果
      */
     T selectOne(T t);
@@ -24,7 +24,7 @@ public interface ExcelMapper<T> {
     /**
      * 查询列表
      *
-     * @param t 映射对象查询
+     * @param t 映射对象查询条件
      * @return 查询结果
      */
     List<T> selectList(T t);
@@ -32,7 +32,7 @@ public interface ExcelMapper<T> {
     /**
      * 删除
      *
-     * @param t 映射对象查询
+     * @param t 映射对象查询条件
      * @return 删除结果
      */
     int delete(T t);
@@ -40,7 +40,7 @@ public interface ExcelMapper<T> {
     /**
      * 按条件更新
      *
-     * @param t       映射对象查询
+     * @param t       映射对象查询条件
      * @param example 更新查询条件
      * @return 更新影响数量
      */
@@ -49,7 +49,7 @@ public interface ExcelMapper<T> {
     /**
      * 插入
      *
-     * @param t 映射对象查询
+     * @param t 插入对象数据
      */
     void insert(T t);
 

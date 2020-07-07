@@ -22,7 +22,7 @@ public class SimpleExcelHandler implements IExcelHandler {
     public Workbook getWorkBook(WorkBookInfo workBookInfo) {
 
         MyAssert.notNull(workBookInfo, "workBookInfo为空， 读取excel失败");
-
+        //获取目录下的文件 通过文件名 获取excel
         List<String> excelName = FileUtils.readPath(workBookInfo.getExcelPath());
         for (String name : excelName) {
             if (name.contains(workBookInfo.getExcelName())) {

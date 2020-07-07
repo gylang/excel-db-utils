@@ -45,6 +45,12 @@ public class FileUtils {
      * @return 文件路径列表
      */
     public static List<String> readPath(String path) {
+
+        //判断是否以 \结尾
+        char lastIndex = '\\';
+        if (lastIndex != path.charAt(path.length() - 1)) {
+            path = path + lastIndex;
+        }
         List<String> fileList = new ArrayList<>();
         String[] list = new File(path).list();
         if (null != list) {

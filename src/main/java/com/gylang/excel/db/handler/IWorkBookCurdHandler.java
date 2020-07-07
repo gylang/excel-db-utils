@@ -10,7 +10,7 @@ import java.util.List;
  * data 2020/7/5
  * @version v0.0.1
  */
-public interface IWorkBookCrudHandler<T> {
+public interface IWorkBookCurdHandler<T> {
 
 
     /**
@@ -55,12 +55,12 @@ public interface IWorkBookCrudHandler<T> {
      *
      * @return 数据处理实现类
      */
-    IExcelColValHandler getIExcelColValHandler();
+    IExcelColValHandler getExcelColValHandler();
 
     /**
      * 设置数据处理类
      *
-     * @param IExcelColValHandler 数据处理实现类
+     * @param excelColValHandler 数据处理实现类
      */
-    void setIExcelColValHandler(IExcelColValHandler IExcelColValHandler);
+    void setExcelColValHandler(IExcelColValHandler excelColValHandler);
 }

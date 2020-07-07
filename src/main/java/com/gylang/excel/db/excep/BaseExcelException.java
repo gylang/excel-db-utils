@@ -1,10 +1,11 @@
 package com.gylang.excel.db.excep;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 异常
+ *
  * @author gylang
  * data 2020/7/4
  * @version v0.0.1

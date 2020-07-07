@@ -7,6 +7,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
+ * 处理实体类映射
+ *
  * @author gylang
  * data 2020/7/4
  * @version v0.0.1
@@ -16,6 +18,7 @@ public interface IAnnotationExcelTypeHandler {
 
     /**
      * 获取excel sheet 第一行表头信息
+     * 获取实体类 与 excel的映射关系 key: 字段名 value: 列下标
      *
      * @param sheetInfo 对象映射关系赋值对象
      * @param source    映射实体类
@@ -25,6 +28,7 @@ public interface IAnnotationExcelTypeHandler {
 
     /**
      * 获取workBookInfo
+     * 存储了workbook的路径
      *
      * @param source 实体类映射对象
      * @return WorkBookInfo 实现excel信息
@@ -32,10 +36,11 @@ public interface IAnnotationExcelTypeHandler {
     WorkBookInfo getWorkBookInfo(Class<?> source);
 
     /**
-     * 获取excel sheet 第一行表头信息
+     * 获取excel sheet 通过实体类映射获取指定的sheet
      *
      * @param workbook 对象映射关系赋值对象
      * @param target   映射实体类
+     * @return 获取区第一行的
      */
     Sheet getTargetSheet(Workbook workbook, Class<?> target);
 

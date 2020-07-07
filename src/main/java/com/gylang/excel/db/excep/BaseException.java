@@ -13,6 +13,7 @@ public class BaseException  extends RuntimeException {
     protected String msg;
 
     public BaseException(String code, String msg) {
+        super(msg);
         this.code = code;
         this.msg = msg;
     }
@@ -24,7 +25,7 @@ public class BaseException  extends RuntimeException {
     }
 
     public BaseException(String message, Throwable cause, String code, String msg) {
-        super(message, cause);
+        super(msg, cause);
         this.code = code;
         this.msg = msg;
     }

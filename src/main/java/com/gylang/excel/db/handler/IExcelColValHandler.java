@@ -2,8 +2,6 @@ package com.gylang.excel.db.handler;
 
 import com.gylang.excel.db.entity.ColHeaderInfo;
 import com.gylang.excel.db.entity.SheetInfo;
-import com.gylang.excel.db.enums.ExcelColType;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -33,7 +31,7 @@ public interface IExcelColValHandler {
      * @param cell 单元格
      * @return 字符串
      */
-    Date toDate(Cell cell, String format);
+    Date toDate(Cell cell);
 
     /**
      * 转字符串
@@ -68,6 +66,13 @@ public interface IExcelColValHandler {
      */
     BigDecimal toBigDecimal(Cell cell);
 
+    /**
+     * 获取单元格的值 转成java数据类型
+     *
+     * @param colHeaderInfo 实体类 与excel映射关系
+     * @param cell          单元格
+     * @return java数据类型
+     */
     Object getDataForExcelColType(ColHeaderInfo colHeaderInfo, Cell cell);
 
     /**

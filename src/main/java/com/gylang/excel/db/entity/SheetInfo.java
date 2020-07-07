@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * excel的sheet表与实体类映射关系
+ *
  * @author gylang
  * data 2020/7/4
  * @version v0.0.1
@@ -23,6 +25,9 @@ public class SheetInfo {
      */
     private String sheetName;
 
+    /**
+     * 实体类类型
+     */
     private Class<?> clazz;
 
     /**

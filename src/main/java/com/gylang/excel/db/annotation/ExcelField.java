@@ -20,5 +20,9 @@ public @interface ExcelField {
      */
     String name() default "";
 
+    /**
+     * 数据类型
+     * @return
+     */
     Class<?> type() default DefaultType.class;
 }
