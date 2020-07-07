@@ -2,7 +2,6 @@ package com.gylang.excel.db.handler.impl;
 
 import com.gylang.excel.db.entity.ColHeaderInfo;
 import com.gylang.excel.db.entity.SheetInfo;
-import com.gylang.excel.db.enums.ExcelColType;
 import com.gylang.excel.db.handler.IExcelColValHandler;
 import com.gylang.excel.db.myassert.MyAssert;
 import com.gylang.excel.db.util.PropertyUtils;
@@ -13,7 +12,6 @@ import org.apache.poi.ss.usermodel.Row;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,17 +20,6 @@ import java.util.Map;
  * @version v0.0.1
  */
 public class SimpleExcelColHandlerImpl implements IExcelColValHandler {
-
-    private static final Map<String, ExcelColType> EXCEL_TYPE = new HashMap<>(6);
-
-    static {
-        EXCEL_TYPE.put(String.class.getName(), ExcelColType.STRING);
-        EXCEL_TYPE.put(Integer.class.getName(), ExcelColType.INTEGER);
-        EXCEL_TYPE.put(Float.class.getName(), ExcelColType.FLOAT);
-        EXCEL_TYPE.put(Double.class.getName(), ExcelColType.DOUBLE);
-        EXCEL_TYPE.put(Date.class.getName(), ExcelColType.TIME);
-        EXCEL_TYPE.put(BigDecimal.class.getName(), ExcelColType.BIG_DECIMAL);
-    }
 
 
     @Override
@@ -67,77 +54,43 @@ public class SimpleExcelColHandlerImpl implements IExcelColValHandler {
     }
 
 
-
     @Override
     public String toStr(Cell cell) {
-
         return cell.getStringCellValue();
     }
 
     @Override
-    public Date toDate(Cell cell, String format) {
-        if (cell.getCellType().equals(CellType.NUMERIC)) {
-            return cell.getDateCellValue();
-        } else if (cell.getCellType().equals(CellType.STRING)) {
-
-            //todo 待处理
-            String dateCellValue = cell.getStringCellValue();
-            return new Date(dateCellValue);
-        } else {
-            return null;
-        }
+    public Date toDate(Cell cell) {
+        return cell.getDateCellValue();
     }
 
     @Override
     public Integer toInteger(Cell cell) {
-        if (cell.getCellType().equals(CellType.STRING)) {
-            String value = cell.getStringCellValue();
-            return Integer.valueOf(value);
-        } else if (cell.getCellType().equals(CellType.NUMERIC)) {
-            double value = cell.getNumericCellValue();
-            return (int) value;
-        } else {
-            return null;
-        }
+        String value = cell.getStringCellValue();
+        return Double.valueOf(value).intValue();
     }
 
     @Override
     public Float toFloat(Cell cell) {
-        if (cell.getCellType().equals(CellType.STRING)) {
-            String value = cell.getStringCellValue();
-            return Float.valueOf(value);
-        } else if (cell.getCellType().equals(CellType.NUMERIC)) {
-            double value = cell.getNumericCellValue();
-            return (float) value;
-        } else {
-            return null;
-        }
+
+        String value = cell.getStringCellValue();
+        return Float.valueOf(value);
     }
 
     @Override
     public Double toDouble(Cell cell) {
-        if (cell.getCellType().equals(CellType.STRING)) {
-            String value = cell.getStringCellValue();
-            return Double.valueOf(value);
-        } else if (cell.getCellType().equals(CellType.NUMERIC)) {
-            return cell.getNumericCellValue();
-        } else {
-            return null;
-        }
+
+        String value = cell.getStringCellValue();
+        return Double.valueOf(value);
 
     }
 
 
     @Override
     public BigDecimal toBigDecimal(Cell cell) {
-        if (cell.getCellType().equals(CellType.STRING)) {
-            String value = cell.getStringCellValue();
-            return new BigDecimal(value);
-        } else if (cell.getCellType().equals(CellType.NUMERIC)) {
-            return BigDecimal.valueOf(cell.getNumericCellValue());
-        } else {
-            return null;
-        }
+
+        String value = cell.getStringCellValue();
+        return new BigDecimal(value);
 
     }
 
@@ -145,31 +98,29 @@ public class SimpleExcelColHandlerImpl implements IExcelColValHandler {
     @Override
     public Object getDataForExcelColType(ColHeaderInfo excelColType, Cell cell) {
 
+        //除了日期 其他格式都用String处理
         if (String.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
+            cell.setCellType(CellType.STRING);
             return toStr(cell);
-
         } else if (Integer.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
-
+            cell.setCellType(CellType.STRING);
             return toInteger(cell);
         } else if (Float.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
+            cell.setCellType(CellType.STRING);
             return toStr(cell);
 
         } else if (Double.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
+            cell.setCellType(CellType.STRING);
             return toDouble(cell);
 
         } else if (Date.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
-            return toDate(cell, "yyyyMMdd hh:mm:ss");
+            return toDate(cell);
 
         } else if (BigDecimal.class.getName().equalsIgnoreCase(excelColType.getTypeName())) {
+            cell.setCellType(CellType.STRING);
             return toBigDecimal(cell);
 
-        } else if (ExcelColType.ONLY_TIME.name().equalsIgnoreCase(excelColType.getTypeName())) {
-            return toDate(cell, "hh:mm:ss");
-
-        } else if (ExcelColType.DATE.name().equalsIgnoreCase(excelColType.getTypeName())) {
-            return toDate(cell, "yyyyMMdd");
         }
-
         return null;
     }
 

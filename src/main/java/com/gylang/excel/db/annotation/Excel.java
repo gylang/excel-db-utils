@@ -24,5 +24,9 @@ public @interface Excel {
      */
     String sheetName() default "";
 
-    String name() default "";
+    /**
+     * excel名
+     * @return excel名
+     */
+    String excelName() default "";
 }

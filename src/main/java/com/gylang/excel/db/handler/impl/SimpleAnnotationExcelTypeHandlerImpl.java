@@ -73,7 +73,7 @@ public class SimpleAnnotationExcelTypeHandlerImpl implements IAnnotationExcelTyp
         Excel excel = source.getAnnotation(Excel.class);
         WorkBookInfo workBookInfo = new WorkBookInfo();
         workBookInfo.setExcelPath(excel.path());
-        workBookInfo.setExcelName(excel.name());
+        workBookInfo.setExcelName(excel.excelName());
 
         return workBookInfo;
     }
